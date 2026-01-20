@@ -5,6 +5,7 @@ export class AntEngine {
     this.size = size;
     this.rules = rules;
     this.grid = new Uint8Array(size * size); // Default 0 (Black Background)
+    this.cellStepMap = new Uint32Array(size * size); // Track when each cell was first colored
     
     this.antPos = {
       x: Math.floor(size / 2),
@@ -34,6 +35,7 @@ export class AntEngine {
         antDir: this.antDir,
         cellIndex: index,
         cellState: currentState,
+        cellStep: this.cellStepMap[index],
         steps: this.steps
     });
     if (this.history.length > 3) this.history.shift();
@@ -47,6 +49,11 @@ export class AntEngine {
 
     // Move to next state (wrap around number of rules/colors)
     this.grid[index] = (currentState + 1) % this.rules.length;
+    
+    // Record when this cell was colored (for rainbow mode)
+    if (this.cellStepMap[index] === 0) {
+      this.cellStepMap[index] = this.steps + 1; // +1 so 0 means uncolored
+    }
 
     this.moveForward();
     this.steps++;
@@ -62,8 +69,9 @@ export class AntEngine {
     this.antDir = prevState.antDir;
     this.steps = prevState.steps;
     
-    // Restore Cell Color
+    // Restore Cell Color and step map
     this.grid[prevState.cellIndex] = prevState.cellState;
+    this.cellStepMap[prevState.cellIndex] = prevState.cellStep;
     
     return true;
   }
@@ -82,7 +90,8 @@ export class AntEngine {
   }
 
   reset() {
-    this.grid.fill(0); // Reset to 0 (Black Background)
+    this.grid.fill(0);
+    this.cellStepMap.fill(0);
     this.antPos = {
       x: Math.floor(this.size / 2),
       y: Math.floor(this.size / 2)

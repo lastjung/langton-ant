@@ -1,5 +1,7 @@
 # Langton's Ant Simulator
 
+**🚀 [Live Demo](https://lastjung.github.io/langton-ant/)**
+
 A premium, interactive, and high-performance Langton's Ant simulation built with Vanilla JavaScript and Vite.
 
 ## 🐜 Features

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chaos to Order: Langton's Ant</title>
+    <title>Langton's Ant</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,11 +14,13 @@
   </head>
   <body>
     <div id="app">
+      <!-- Centered Header with Mode Selection -->
       <header>
-        <h1>Chaos to Order</h1>
+        <h1>Langton Ant</h1>
         <div class="view-mode-selector">
           <button id="modeDiscovery" class="mode-btn">Discovery</button>
           <button id="modeSimulation" class="mode-btn active">Simulation</button>
+          <button id="modeEvolution" class="mode-btn">Evolution</button>
         </div>
       </header>
 
@@ -27,29 +29,38 @@
           <canvas id="antCanvas"></canvas>
         </div>
 
+        <!-- Scoreboard (Top Left, Draggable) -->
+        <div id="scoreboard" class="floating-panel scoreboard">
+          <div class="drag-handle">SCORE</div>
+          <div class="score-row">
+            <span class="score-label">Steps</span>
+            <span class="score-value" id="stepCount">0</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Time</span>
+            <span class="score-value" id="elapsedTime">00:00.00</span>
+          </div>
+          <div class="phase-badge" id="phaseBadge"></div>
+        </div>
+
         <!-- Floating Control Widget -->
         <div id="controlPanel" class="floating-panel mini-panel">
-          <div class="drag-handle">:: CONTROLS</div>
-          <div class="stats-compact">
-            <span id="stepCount">Steps: 0</span>
-            <span id="elapsedTime">00:00.00</span>
-          </div>
           <div class="buttons-compact">
             <button id="stepBack" class="btn-icon">◀</button>
-            <button id="playPause" class="btn-primary">Play</button>
+            <button id="playPause" class="btn-primary">▶ Play</button>
             <button id="stepForward" class="btn-icon">▶</button>
-            <button id="soundToggle" class="btn-icon">🔇</button>
+            <button id="soundToggle" class="btn-icon">🔊</button>
             <button id="reset" class="btn-secondary">Reset</button>
           </div>
         </div>
 
-        <!-- Floating Settings Widget -->
+        <!-- Floating Settings Widget (Hidden during game) -->
         <div id="settingsPanel" class="floating-panel settings-widget">
           <div class="drag-handle">:: SETTINGS</div>
           <div class="settings-content">
             <div class="setting-item">
               <label>Speed</label>
-              <input type="range" id="speed" min="1" max="100" value="10" />
+              <input type="range" id="speed" min="1" max="100" value="20" />
             </div>
             <div class="setting-item">
               <label>Volume</label>
@@ -58,10 +69,34 @@
             <div class="setting-item">
               <label>Sound</label>
               <select id="waveType">
+                <option value="piano" selected>🎹 Piano</option>
                 <option value="sine">Sine</option>
-                <option value="triangle" selected>Triangle</option>
+                <option value="triangle">Triangle</option>
                 <option value="square">Square</option>
                 <option value="sawtooth">Sawtooth</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label>Board Color</label>
+              <select id="boardColor">
+                <option value="#0B0E14" selected>🌑 Dark</option>
+                <option value="#1a1a2e">🌌 Navy</option>
+                <option value="#0d1b2a">🌊 Ocean</option>
+                <option value="#1b1b1b">⬛ Black</option>
+                <option value="#0d2818">🌲 Forest</option>
+                <option value="#2d3436">🪨 Charcoal</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label>Cell Color</label>
+              <select id="cellColor">
+                <option value="rainbow">🌈 Rainbow</option>
+                <option value="#32D74B" selected>💚 Green</option>
+                <option value="#00D4FF">💙 Cyan</option>
+                <option value="#FF6B6B">❤️ Red</option>
+                <option value="#FFD93D">💛 Yellow</option>
+                <option value="#C77DFF">💜 Purple</option>
+                <option value="#FF8C42">🧡 Orange</option>
               </select>
             </div>
             <div class="setting-item">

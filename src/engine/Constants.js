@@ -1,7 +1,7 @@
 export const CONFIG = {
   GRID_MODES: {
-    DISCOVERY: 15,   // Very large cells
-    SIMULATION: 200  // Normal micro cells
+    DISCOVERY: 15,
+    SIMULATION: 200
   },
   DEFAULT_GRID: 200,
   SPEED_MULTIPLIER: 1,
