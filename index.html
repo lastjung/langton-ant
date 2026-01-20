@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chaos to Order: Langton's Ant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Chaos to Order</h1>
+        <div class="view-mode-selector">
+          <button id="modeDiscovery" class="mode-btn">Discovery</button>
+          <button id="modeSimulation" class="mode-btn active">Simulation</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="canvas-container">
+          <canvas id="antCanvas"></canvas>
+        </div>
+
+        <!-- Floating Control Widget -->
+        <div id="controlPanel" class="floating-panel mini-panel">
+          <div class="drag-handle">:: CONTROLS</div>
+          <div class="stats-compact">
+            <span id="stepCount">Steps: 0</span>
+            <span id="elapsedTime">00:00.00</span>
+          </div>
+          <div class="buttons-compact">
+            <button id="stepBack" class="btn-icon">◀</button>
+            <button id="playPause" class="btn-primary">Play</button>
+            <button id="stepForward" class="btn-icon">▶</button>
+            <button id="soundToggle" class="btn-icon">🔇</button>
+            <button id="reset" class="btn-secondary">Reset</button>
+          </div>
+        </div>
+
+        <!-- Floating Settings Widget -->
+        <div id="settingsPanel" class="floating-panel settings-widget">
+          <div class="drag-handle">:: SETTINGS</div>
+          <div class="settings-content">
+            <div class="setting-item">
+              <label>Speed</label>
+              <input type="range" id="speed" min="1" max="100" value="10" />
+            </div>
+            <div class="setting-item">
+              <label>Volume</label>
+              <input type="range" id="volume" min="0" max="0.5" step="0.01" value="0.1" />
+            </div>
+            <div class="setting-item">
+              <label>Sound</label>
+              <select id="waveType">
+                <option value="sine">Sine</option>
+                <option value="triangle" selected>Triangle</option>
+                <option value="square">Square</option>
+                <option value="sawtooth">Sawtooth</option>
+              </select>
+            </div>
+            <div class="setting-item">
+              <label>Patterns</label>
+              <select id="rulePreset"></select>
+            </div>
+            <div class="setting-item">
+              <input type="text" id="ruleInput" placeholder="RLR" maxlength="12" />
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>"Simple rules, complex behavior, inevitable order."</p>
+      </footer>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
